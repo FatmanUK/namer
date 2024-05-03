@@ -105,6 +105,7 @@ func analyse_cli(re *Control, names []string) Stats {
 
 func f_analyse(re *Control) {
 	var stats Stats
+	init_vowels()
 	re.view.log(LL_DEBUG, "Analysing...")
 	names := re.args["<name>"].([]string)
 	var outfile string

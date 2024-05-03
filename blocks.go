@@ -6,6 +6,8 @@ import (
 	"fmt"
 )
 
+var vowels string
+
 // TODO: oh yes, the 'h' thing. Makes 'h' a special bunny. Ignore it in matching (eg. match "cho" not "ho").
 // TODO: add options '--yvowel' and '--wvowel' to analyse function?
 // note, need to encode these settings in the chapter so there's no surprise when we find one or the other
@@ -120,15 +122,17 @@ func StringFromChunkArray(chunks []Chunk) string {
 	return "[" + rv + "]"
 }
 
-func IsVowel(r rune) bool {
+func init_vowels() {
 	// is this all of them? aren't there any more? really?
 	// note some Cyrillic ones are missing
-	var vowels string
+
 	is_welsh := false
 	is_cyrillic := false
 	is_greek := false
 	is_german := true
+	is_dutch := false
 	is_y_vowel := false
+	is_vietnamese := false
 	is_extra := true
 	if true {
 		vowels += "aeiou"
@@ -148,14 +152,24 @@ func IsVowel(r rune) bool {
 	if is_german {
 		vowels += "äöü"
 	}
+	if is_dutch {
+		vowels += "ĳ"
+	}
+	if is_vietnamese {
+		vowels += "ự"
+	}
+	// TODO: identify these into classes
 	if is_extra {
 		vowels += "ɨʉuɪʏʊøɘɵoəœɞʌɔæɐaɶɑɒaàáâãåāăą"
 		vowels += "ǻȁȃạảấầẩẫậắằẳẵặḁæǽ"
 		vowels += "eȅȇḕḗḙḛḝẹẻẽếềểễệēĕėęěèéêëе"
-		vowels += "iȉȋḭḯỉịĩīĭįi̇ìíîïĳ"
+		vowels += "iȉȋḭḯỉịĩīĭįi̇ìíîï"
 		vowels += "oоœøǿȍȏṍṏṑṓọỏốồổỗộớờởỡợōòóŏőôõ"
-		vowels += "uũūŭůűųùúûȕȗṳṵṷṹṻụủứừửữự"
+		vowels += "uũūŭůűųùúûȕȗṳṵṷṹṻụủứừửữ"
 	}
+}
+
+func IsVowel(r rune) bool {
 	return strings.ContainsRune(vowels, r)
 }
 
